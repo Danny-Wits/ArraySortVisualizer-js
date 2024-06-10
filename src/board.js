@@ -39,13 +39,13 @@ class Board {
     }
     console.table(this.array);
   }
-  isSorted(){
-     let flag = true;
-      for (let i = 0; i < this.array.length - 1; i++) {
-        if (this.array[i].value < this.array[i + 1].value) {
-          flag = false;
-        }
+  isSorted() {
+    let flag = true;
+    for (let i = 0; i < this.array.length - 1; i++) {
+      if (this.array[i].value < this.array[i + 1].value) {
+        flag = false;
       }
-     return flag; 
+    }
+    return flag;
   }
 }
