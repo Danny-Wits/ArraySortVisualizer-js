@@ -5,7 +5,7 @@ let sortButton;
 let click;
 
 function preload(){
-  click = loadSound('mixkit-arcade-game-jump-coin-216.wav');
+  //click = loadSound('mixkit-arcade-game-jump-coin-216.wav');
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -52,9 +52,9 @@ function draw() {
           board.array[board.length()-1].release();
         }
         if (board.array[i].access() < board.array[i + 1].access()) {
-          if(!click.isPlaying()){
-            click.play()
-          }
+         // if(!click.isPlaying()){
+         //   click.play()
+         // }
           let temp = board.array[i].getIndex();
           board.array[i].setIndex(board.array[i + 1].getIndex());
           board.array[i + 1].setIndex(temp);
