@@ -10,7 +10,7 @@ function setup() {
   sliderSize.position(10, 30);
   sliderSize.size(200);
   sliderSize.changed(arrayResize);
-  click = loadSound("mixkit-game-click-1114.mp3",audioStart);
+  click = loadSound("src\\mixkit-arcade-game-jump-coin-216.wav",audioStart);
 
 
   sliderSpeed = createSlider(1, 1000, 100, 1);
