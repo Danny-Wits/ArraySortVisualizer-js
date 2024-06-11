@@ -76,9 +76,8 @@ class Board {
         if (i != 0) {
           board.array[i - 1].release();
         }
-        if (this.array[i].access() < this.array[i + 1].access()) {
+        if (this.array[i].access() > this.array[i + 1].access()) {
           clicked();
-          this.array[1+1].swapped();
           let temp = this.array[i].getIndex();
           this.array[i].setIndex(this.array[i + 1].getIndex());
           this.array[i + 1].setIndex(temp);

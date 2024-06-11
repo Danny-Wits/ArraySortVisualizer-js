@@ -8,10 +8,10 @@ class bar {
     this.height = value * 30;
   }
   draw(x, y) {
-    if (this.isAccessed) {
-      fill(255, 0, 0);
-    } else if (this.isSwapped) {
+    if (this.isSwapped) {
       fill(255, 255, 0);
+      } else if (this.isAccessed) {
+      fill(255, 0, 0);
     } else {
       fill(0, 255, 0);
     }
