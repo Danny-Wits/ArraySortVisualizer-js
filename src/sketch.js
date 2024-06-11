@@ -71,7 +71,7 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 function audioStart(){
-  ready=true
+  ready= (!ready);
 }
 function arrayResize() {
   intArray = Array.from(
