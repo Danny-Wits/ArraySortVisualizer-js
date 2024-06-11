@@ -10,16 +10,17 @@ function setup() {
   sliderSize.position(10, 30);
   sliderSize.size(200);
   sliderSize.changed(arrayResize);
-  click = loadSound("src\\mixkit-arcade-game-jump-coin-216.wav",audioStart);
+  click = loadSound("src\\mixkit-arcade-game-jump-coin-216.wav");
+
 
 
   sliderSpeed = createSlider(1, 1000, 100, 1);
   sliderSpeed.position(300, 30);
   sliderSpeed.size(200);
   arrayResize(10);
-  //sortButton = createButton('SORT');
-  // sortButton.position(500, 10);
-  // sortButton.mousePressed(()=>board.sort());
+  Button = createButton('Audio');
+  Button.position(500, 10);
+  Button.mousePressed(()=>audioStart());
 }
 let j = 1;
 let i = 0;
