@@ -49,3 +49,4 @@ class Board {
     return flag;
   }
 }
+}
