@@ -3,83 +3,67 @@ let sliderSize;
 let sliderSpeed;
 let sortButton;
 let click;
-let ready=false;
+let audio;
+let sortB;
+let sortI;
+let pauseB;
+function preload() {
+  click = loadSound("src\\mixkit-arcade-game-jump-coin-216.wav");
+}
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  sliderSize = createSlider(0, 100, 20, 1);
+
+  sliderSize = createSlider(1, 100, 20, 1);
   sliderSize.position(10, 30);
   sliderSize.size(200);
   sliderSize.changed(arrayResize);
-  click = loadSound("src\\mixkit-arcade-game-jump-coin-216.wav");
 
-
-
-  sliderSpeed = createSlider(1, 1000, 100, 1);
+  sliderSpeed = createSlider(1, 100, 30, 1);
   sliderSpeed.position(300, 30);
   sliderSpeed.size(200);
-  arrayResize(10);
-  Button = createButton('Audio');
-  Button.position(500, 10);
-  Button.mousePressed(()=>audioStart());
+  sliderSpeed.changed(() => {
+    board.setSpeed(sliderSpeed.value());
+  });
+
+  audio = createCheckbox("AUDIO");
+  audio.position(300, 60);
+
+  sortB = createButton("BUBBLE SORT");
+  sortB.position(10, 60);
+  sortB.mouseClicked(() => {board.running=true,board.sortBStep(0);});
+
+  sortI = createButton("SORT");
+  sortI.position(120, 60);
+  sortI.mouseClicked(() => board.sort());
+
+  pauseB = createButton("PAUSE/RESUME");
+  pauseB.position(10, 100);
+  pauseB.mouseClicked(() => board.pause());
+  arrayResize();
 }
-let j = 1;
-let i = 0;
 
 function draw() {
   background(0, 225, 255);
+  board.drawBoard();
   fill(0);
   textSize(20);
   text("ArraySize : " + sliderSize.value(), 15, 20);
   text("IterationSpeed : " + sliderSpeed.value(), 300, 20);
-  board.drawBoard();
-
-  if (j >= 500 / sliderSpeed.value() && !board.isSorted()) {
-    j = 0;
-    if (i == board.length() - 1) {
-      i = 0;
-      board.array.forEach((element) => {
-        element.isSwapped = false;
-        element.release();
-      });
-    } else if (i < board.length() - 1) {
-      if (i != 0) {
-        board.array[i - 1].release();
-      } else {
-        board.array[board.length() - 1].release();
-      }
-      if (board.array[i].access() < board.array[i + 1].access()) {
-        
-        if(ready){if (!click.isPlaying()) {
-          click.play();
-        }}
-        let temp = board.array[i].getIndex();
-        board.array[i].setIndex(board.array[i + 1].getIndex());
-        board.array[i + 1].setIndex(temp);
-        temp = board.array[i];
-        board.array[i] = board.array[i + 1];
-        board.array[i + 1] = temp;
-        board.array[i].swapped();
-      }
-      i++;
-    }
-  } else {
-    j++;
-  }
 }
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
-function audioStart(){
-  ready= (!ready);
-}
-function arrayResize() {
-  intArray = Array.from(
-    { length: sliderSize.value() },
-    () => Math.floor(Math.random() * (10 - 1 + 1)) + 1
-  );
 
-  board = new Board(intArray);
-  i = 0;
-  j = 0;
+function arrayResize() {
+  intArray = Array.from({ length: sliderSize.value() }, () => random(10) + 1);
+  board = new Board(intArray, sliderSpeed.value());
+}
+
+function clicked() {
+  if (audio.checked()) {
+    if (!click.isPlaying()) {
+      click.play();
+    }
+  }
 }

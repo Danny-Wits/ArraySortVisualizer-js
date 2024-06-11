@@ -5,7 +5,7 @@ class bar {
     this.index = index;
     this.width = width;
     this.isSwapped = false;
-    this.height = value * 50;
+    this.height = value * 30;
   }
   draw(x, y) {
     if (this.isAccessed) {
