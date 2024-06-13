@@ -16,7 +16,7 @@ class bar {
       fill(0, 255, 0);
     }
     rect(x + index * this.width, y, this.width, this.height);
-    textFont("DIGIFACE",this.width*0.7);
+    textFont("DIGIFACE",(this.width*0.7 >50)?50:this.width*0.7);
     fill(0)
     text(Math.floor(this.value),x + index * this.width+(this.width/4),y+this.height-5)
   }
