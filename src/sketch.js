@@ -4,51 +4,69 @@ let sliderSpeed;
 let sortButton;
 let click;
 let audio;
+let shuffleB;
 let sortB;
-let sortI;
+let sortM;
+let div;
 let pauseB;
 function preload() {
-  click = loadSound("src\\mixkit-arcade-game-jump-coin-216.wav");
+  click = loadSound("src\\assets\\mixkit-arcade-game-jump-coin-216.wav");
 }
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  sliderSize = createSlider(1, 100, 20, 1);
+  sliderSize = createSlider(1, 300, 20, 1);
   sliderSize.position(10, 30);
   sliderSize.size(200);
   sliderSize.changed(arrayResize);
 
-  sliderSpeed = createSlider(1, 100, 30, 1);
-  sliderSpeed.position(300, 30);
+  sliderSpeed = createSlider(1, 500, 100, 1);
+  sliderSpeed.position(600, 30);
   sliderSpeed.size(200);
   sliderSpeed.changed(() => {
     board.setSpeed(sliderSpeed.value());
   });
 
+
   audio = createCheckbox("AUDIO");
-  audio.position(300, 60);
+  audio.position(600, 60);
 
+  shuffleB = createButton("SHUFFLE");
+  shuffleB.mouseClicked(() => {
+   arrayResize();
+  });
   sortB = createButton("BUBBLE SORT");
-  sortB.position(10, 60);
-  sortB.mouseClicked(() => {board.running=true,board.sortBStep(0);});
+  sortB.mouseClicked(() => {
+    (board.running = true), board.BubbleSort();
+  });
+  sortM = createButton("MERGE SORT");
+  sortM.mouseClicked(() => {
+    board.running = true;
+   board.MergeSort(board.array);
+  });
 
-  sortI = createButton("SORT");
-  sortI.position(120, 60);
-  sortI.mouseClicked(() => board.sort());
+  div = createDiv();
+  div.position(10,60);
+  div.child(shuffleB);
+  div.child(sortB);
+  div.child(sortM);
+  div.show();
 
-  pauseB = createButton("PAUSE/RESUME");
-  pauseB.position(10, 100);
-  pauseB.mouseClicked(() => board.pause());
+
+  // pauseB = createButton("PAUSE/RESUME");
+  // pauseB.position(10, 100);
+  // pauseB.mouseClicked(() => board.pause());
   arrayResize();
 }
-
+const Y_AXIS = 1;
+const X_AXIS = 2;
 function draw() {
-  background(0, 225, 255);
-  board.drawBoard();
+  background(0,200,255)
   fill(0);
   textSize(20);
   text("ArraySize : " + sliderSize.value(), 15, 20);
-  text("IterationSpeed : " + sliderSpeed.value(), 300, 20);
+  text("IterationSpeed : " + sliderSpeed.value(), 600, 20);
+  board.draw();
 }
 
 function windowResized() {
@@ -60,7 +78,7 @@ function arrayResize() {
   board = new Board(intArray, sliderSpeed.value());
 }
 
-function clicked() {
+function swapped() {
   if (audio.checked()) {
     if (!click.isPlaying()) {
       click.play();
